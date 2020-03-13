@@ -11,6 +11,7 @@ class Register extends Component {
             name: "",
             email: "",
             password: "",
+            schoolName: ""
         }
     
     }
@@ -34,13 +35,20 @@ class Register extends Component {
         })
     }
 
+    schoolNameChangeHandler = (e) => {
+        this.setState({
+            schoolName: e.target.value
+        })
+    }
+
     submitRegistration = (e) => {
         e.preventDefault()
         
         const newUser = {
             email: this.state.email,
             password: this.state.password,
-            name: this.state.name
+            name: this.state.name,
+            schoolName: this.state.schoolName
         }
         console.log('newUser', newUser)
         axios.defaults.withCredentials = true;
@@ -58,9 +66,10 @@ class Register extends Component {
         return(
             <div>
                 <form>
-                    <input onChange={this.nameChangeHandler} placeholder="name" type="text"/>
-                    <input onChange={this.emailChangeHandler} placeholder="email" type="text"/>
-                    <input onChange={this.passwordChangeHandler} placeholder="password" type="text"/>
+                    <input onChange={this.nameChangeHandler} placeholder="Name" type="text"/>
+                    <input onChange={this.schoolNameChangeHandler} placeholder="School Name" type="text"/>
+                    <input onChange={this.emailChangeHandler} placeholder="Email" type="text"/>
+                    <input onChange={this.passwordChangeHandler} placeholder="Password" type="text"/>
                     <button type="button" onClick={this.submitRegistration}>Register!</button>
                 </form>
             </div>

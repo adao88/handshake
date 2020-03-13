@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
 import axios from 'axios'
+import {Redirect} from 'react-router'
+import cookie from 'react-cookies'
 
 
 class CompanyLogin extends Component {
@@ -46,13 +47,20 @@ class CompanyLogin extends Component {
 
 
     render(){
+        let redirectVar = null
+        if(cookie.load("Logged-In")){
+            redirectVar = <Redirect to='/companyProfile'/>
+        }
         return(
             <div>
-                <form>
-                    <input onChange={this.emailChangeHandler} placeholder="email" type="text"/>
-                    <input onChange={this.passwordChangeHandler} placeholder="password" type="text"/>
-                    <button type="button" onClick={this.submitLogin}>Login!</button>
-                </form>
+                {redirect}
+                <div>
+                    <form>
+                        <input onChange={this.emailChangeHandler} placeholder="email" type="text"/>
+                        <input onChange={this.passwordChangeHandler} placeholder="password" type="text"/>
+                        <button type="button" onClick={this.submitLogin}>Login!</button>
+                    </form>
+                </div>
             </div>
         )
     }
