@@ -10,7 +10,8 @@ class CompanyLogin extends Component {
     
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            logged: false
         }
     
     }
@@ -36,24 +37,31 @@ class CompanyLogin extends Component {
             password: this.state.password
         }
         console.log('User: ', user)
-        axios.defaults.withCredentials = true;
 
         axios.post('/company-login', user)
             .then(response => {
                 console.log('Response: ', response)
+                
+                if(response.data.login === 'Success'){
+                    this.setState({
+                        logged: true
+                    })
+                }
             })
     }
+
 
 
 
     render(){
         let redirectVar = null
         if(cookie.load("Logged-In")){
+            console.log('logged in cookie loaded!')
             redirectVar = <Redirect to='/companyProfile'/>
         }
         return(
             <div>
-                {redirect}
+                {redirectVar}
                 <div>
                     <form>
                         <input onChange={this.emailChangeHandler} placeholder="email" type="text"/>

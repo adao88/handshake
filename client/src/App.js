@@ -7,6 +7,7 @@ import Login from './components/Login'
 import CompanyRegister from './components/CompanyRegister'
 import CompanyLogin from './components/CompanyLogin'
 import UserProfile from './components/UserPofile/UserProfile'
+import CompanyProfile from './components/CompanyProfile/CompanyProfile'
 
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path='/company-register' component={CompanyRegister}/>
           <Route path='/company-login' component={CompanyLogin}/>
           <Route path='/userProfile' component={UserProfile}/>
+          <Route path='/companyProfile' component={CompanyProfile}/>
         </Switch>
       </div>
       )

@@ -39,7 +39,6 @@ class Login extends Component {
             password: this.state.password,
         }
         console.log('User: ', user)
-        axios.defaults.withCredentials = true;
 
         axios.post('/login', user)
             .then(response => {

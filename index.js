@@ -2,7 +2,6 @@ const express = require('express')
 const path = require('path');
 const app = express()
 const bodyParser = require('body-parser');
-const {db} = require('./db/index')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
@@ -23,12 +22,13 @@ app.use(session({
 
 const {userRouter} = require('./routes/userLogging')
 const {userApiRouter} = require('./routes/apis/userData')
-
+const {companyApiRouter} = require('./routes/apis/companyData')
 app.use(cookieParser())
 
 
 app.use('/', userRouter)
 app.use('/api', userApiRouter)
+app.use('/api', companyApiRouter)
 
 
 app.get('*', (req, res) => {
