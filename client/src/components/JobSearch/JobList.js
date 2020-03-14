@@ -16,6 +16,7 @@ const JobList = ({jobs = []}) => {
                 job_id={job.id}
                 co_id={job.co_id}
                 description={job.description}
+                key={job.id}
             />
         )
 

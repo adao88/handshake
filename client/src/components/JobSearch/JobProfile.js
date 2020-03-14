@@ -30,7 +30,8 @@ class JobProfile extends Component {
         let jobApplication = {
             co_id: this.state.co_id,
             title: this.state.title,
-            job_id: this.state.job_id
+            job_id: this.state.job_id,
+            company: this.state.company
         }
         axios.post('/api/apply-to-job', jobApplication)
             .then(response => {

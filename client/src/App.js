@@ -13,7 +13,7 @@ import StudentTab from './components/StudentsTab/StudentTab'
 import StudentProfile from './components/StudentsTab/StudentProfile'
 import JobTab from './components/JobSearch/JobTab'
 import JobProfile from './components/JobSearch/JobProfile'
-
+import ApplicationsTab from'./components/ApplicationsTab/ApplicationsTab'
 class App extends Component {
   render(){
 
@@ -33,6 +33,7 @@ class App extends Component {
           <Route path ='/studentProfile' component={StudentProfile}/>
           <Route path ='/job-tab' component={JobTab}/>
           <Route path ='/jobProfile' component={JobProfile}/>
+          <Route path='/applicationsTab' component={ApplicationsTab}/>
         </Switch>
       </div>
       )

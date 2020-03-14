@@ -83,18 +83,14 @@ router.post('/update-job-status', (req, res) => {
     })
 })
 
+/*
 router.post('/apply-to-job', (req, res) => {
 
-    let {co_id, title, job_id} = req.body
+    let {co_id, title, job_id, company} = req.body
     let student_id = req.session.userId
     let student_name = req.session.studentName
-    let data = {
-        co_id, title, job_id, student_id, student_name
-    }
-
-    console.log('data: ', data)
-    console.log('session data: ', req.session)
-
+    
+    let today = new Date().toLocaleDateString()
 
     db.query('SELECT * FROM jobs_students WHERE job_id = ? AND student_id = ?', 
     [`${job_id}`, `${student_id}`], (error, results, fields) => {
@@ -106,7 +102,8 @@ router.post('/apply-to-job', (req, res) => {
                 message: 'You have already applied to this job'
             })
         } else {
-            db.query(`INSERT INTO jobs_students (student_id, co_id, status, student_name, title, job_id) VALUES('${student_id}', '${co_id}', 'Pending', '${student_name}', '${title}', '${job_id}')`,
+            db.query(`INSERT INTO jobs_students (student_id, co_id, status, student_name, title, job_id, company, today) 
+            VALUES('${student_id}', '${co_id}', 'Pending', '${student_name}', '${title}', '${job_id}', '${company}', '${today}')`,
             (error, result) => {
                 if(error) throw error 
                 console.log('result inner loop:')
@@ -117,6 +114,7 @@ router.post('/apply-to-job', (req, res) => {
         }
     })
 })
+*/
 
 router.get('/get-job-list', (req, res) => {
 
@@ -131,5 +129,5 @@ router.get('/get-job-list', (req, res) => {
 })
 
 module.exports = {
-    jobPostsRouter: router
+    jobPostsApiRouter: router
 };
