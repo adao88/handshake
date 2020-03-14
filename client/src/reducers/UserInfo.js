@@ -1,37 +1,4 @@
 
-/*
-const initialState = {
-    Basic: {
-        name: 'An Dao',
-        birthdate: '04-07-88',
-        location: 'San Jose',
-        email: 'andao88@gmail.com',
-        phone: '4083961936',
-        objective: 'Software Engineer'
-    },
-    Education: [
-        {
-        name: 'SJSU',
-        degree: 'MSSE',
-        location: 'San Jose',
-        dates: '2021',
-        gpa: '3.5'
-        }
-    ],
-    Skillset:{
-        skills: 'Java, Javascript'
-    },
-    Experience: [
-        {
-            company: 'Apple',
-            title: 'Software Intern',
-            location: 'Cupertino',
-            dates: '2019',
-            description: 'cool stuff'
-        }
-    ]
-}
-*/
 
 const initialState = {
     Basic: {

@@ -126,14 +126,6 @@ export const deleteEducationInfo = (id) => async dispatch => {
         payload: data
     })
 }
-/*
-export const changeEducationInfo = (info) => {
-    return {
-        type: 'CHANGE_EDUCATION_INFO',
-        payload: info
-    }
-}
-*/
 
 
 export const fetchUserInfo = () => async dispatch => {

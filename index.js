@@ -23,12 +23,14 @@ app.use(session({
 const {userRouter} = require('./routes/userLogging')
 const {userApiRouter} = require('./routes/apis/userData')
 const {companyApiRouter} = require('./routes/apis/companyData')
+const {jobPostsRouter} = require('./routes/apis/jobData')
 app.use(cookieParser())
 
 
 app.use('/', userRouter)
 app.use('/api', userApiRouter)
 app.use('/api', companyApiRouter)
+app.use('/api', jobPostsRouter)
 
 
 app.get('*', (req, res) => {

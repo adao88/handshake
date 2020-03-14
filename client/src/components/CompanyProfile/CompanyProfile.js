@@ -68,11 +68,12 @@ class CompanyProfile extends Component {
         console.log('props', this.props)
         let redirectVar = null
         if(!cookie.load("Logged-In") || this.state.logged === false){
-            redirectVar = <Redirect to='/login'/>
+            redirectVar = <Redirect to='/company-login'/>
         }
 
         return(
             <div className="ui segment">
+                {redirectVar}
                 <h2>Basic Info</h2>
                 <CompanyBasic
                     name={this.props.companyInfo.Basic.name}
