@@ -16,6 +16,7 @@ router.get('/get-job-post-page', (req, res) => {
     }
 
     let co_id = req.session.userId
+    console.log('session id check: ', co_id)
 
     db.query('SELECT * FROM jobs WHERE co_id = ?', [`${co_id}`], (error, results, fields) => {
         if (error) throw error
@@ -34,26 +35,6 @@ router.get('/get-job-post-page', (req, res) => {
         })
     })
 })
-
-const getJobsPosted =  (co_id) => {
-   let jobsPosted =  db.query('SELECT * FROM jobs WHERE co_id = ?', [`${co_id}`], (error, results, fields) => {
-        if (error) throw error
-        return results
-    })
-    return jobsPosted
-}
-
-const postNewJob = async (title, deadline, date, location, salary, description, category, co_id) => {
-    let newJobResult = await db.query(`INSERT INTO jobs (title, deadline, date, location, salary, description, category, co_id)
-    VALUES ('${title}', '${deadline}', '${date}', '${location}', '${salary}', '${description}', '${category}'), '${co_id}')`,
-    (error, result) => {
-        if (error) throw error
-        console.log('Posting New Job with co_id: ', co_id)
-        return result
-    })
-    
-    console.log('New Job Result: ', newJobResult)
-}
 
 router.post('/post-new-job', async (req, res) => {
     console.log('inside job post route')
@@ -100,10 +81,55 @@ router.post('/update-job-status', (req, res) => {
             })
         })
     })
+})
+
+router.post('/apply-to-job', (req, res) => {
+
+    let {co_id, title, job_id} = req.body
+    let student_id = req.session.userId
+    let student_name = req.session.studentName
+    let data = {
+        co_id, title, job_id, student_id, student_name
+    }
+
+    console.log('data: ', data)
+    console.log('session data: ', req.session)
 
 
+    db.query('SELECT * FROM jobs_students WHERE job_id = ? AND student_id = ?', 
+    [`${job_id}`, `${student_id}`], (error, results, fields) => {
+        if (error) throw error
+        console.log('outer loop results: ', results)
+        //console.log('results: ', results)
+        if(results.length > 0) {
+            res.send({
+                message: 'You have already applied to this job'
+            })
+        } else {
+            db.query(`INSERT INTO jobs_students (student_id, co_id, status, student_name, title, job_id) VALUES('${student_id}', '${co_id}', 'Pending', '${student_name}', '${title}', '${job_id}')`,
+            (error, result) => {
+                if(error) throw error 
+                console.log('result inner loop:')
+                res.send({
+                    message: "Application Submitted"
+                })
+            })
+        }
+    })
+})
+
+router.get('/get-job-list', (req, res) => {
+
+    console.log('session id check: ', req.session.userId)
+
+    db.query('SELECT * FROM jobs', (error, results, fields) => {
+        if (error) throw error 
+        res.send({
+            Jobs: results
+        })
+    })
 })
 
 module.exports = {
     jobPostsRouter: router
-}
+};

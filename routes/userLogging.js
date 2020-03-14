@@ -100,6 +100,7 @@ router.post('/login', (req, res) => {
 
     db.query('SELECT * FROM Users WHERE email = ?', [email], (error, results, fields) => {
         if (error) throw err
+        console.log('email check result: ', results)
         if(results.length < 1) {
             res.send({
                 message: "login failed"
@@ -116,6 +117,7 @@ router.post('/login', (req, res) => {
                 
 
                 req.session.userId = user_id
+                req.session.studentName = results[0].name
 
                 console.log(req.session.userId)
                 res.cookie('Logged-In',"user", {maxAge: 900000, httpOnly: false, path : '/'})
@@ -141,7 +143,7 @@ router.post('/company-login', (req, res) => {
 
     db.query('SELECT * FROM Company WHERE email = ?', [email], (error, results, fields) => {
         if (error) throw err
-
+        console.log('email check result: ', results)
         let user_id = results[0].id
         let hash = results[0].password
         console.log('query results: ', results[0])

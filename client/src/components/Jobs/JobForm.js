@@ -81,7 +81,7 @@ const JobForm = ({showJobForm, hideJobForm, postNewJob}) => {
                         <div onChange={handleCategoryChange}>
                             <input type="radio" value="Full-Time" name="category"/> Full-Time
                             <input type="radio" value="Part-Time" name="category"/> Part-Time
-                            <input type="radio" value="Intern" name="category"/> Intern
+                            <input type="radio" value="Internship" name="category"/> Intern
                             <input type="radio" value="On-Campus" name="category"/> On-Campus
                         </div>
                     </div> 
