@@ -6,6 +6,8 @@ const app = express()
 
 app.use(bodyParser.json());
 
+
+
 router.get('/get-job-post-page', (req, res) => {
 
     let jobPageInfo = {
@@ -74,32 +76,6 @@ router.post('/post-new-job', async (req, res) => {
         })
         
     })
-
-/*
-    db.query('SELECT * FROM jobs WHERE co_id = ?', [`${co_id}`], (error, results, fields)=> {
-        if (error) throw error
-        
-        /*db.query(`INSERT INTO jobs (title, deadline, date, location, salary, description, category, co_id)
-        VALUES ('${title}', '${deadline}', '${date}', '${location}', '${salary}', '${description}', '${category}'), '${co_id}')`,
-        (error, result) => {
-            if (error) throw error
-            console.log('Posting New Job with co_id: ', co_id)
-
-        
-        })*/
-        
-    
-
-    
-    /*
-    db.query(`INSERT INTO jobs (title, deadline, date, location, salary, description, category, co_id)
-    VALUES ('${title}', '${deadline}', '${date}', '${location}', '${salary}', '${description}', '${category}'), '${co_id}')`,
-    (error, result) => {
-        if (error) throw error
-        console.log('Posting New Job with co_id: ', co_id)
-
-        
-    })*/
     
 })
 

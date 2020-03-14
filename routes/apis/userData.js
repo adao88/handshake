@@ -217,6 +217,28 @@ router.post('/delete-education', (req, res) => {
     })
 })
 
+router.get('/get-student-list', (req,res) => {
+
+    db.query('SELECT * FROM users', (error, results, fields) => {
+        if (error) throw error
+        console.log('Fetched student list: ', results)
+
+        res.send({
+            Students: results
+        })
+    })
+})
+
+router.post('/get-student-page', (req, res) => {
+    let {id} = req.body
+
+    db.query('SELECT * FROM users WHERE id = ?', [`${id}`], (error, results, fields) => {
+        let result = results[0]
+        res.send({...result})
+
+    })
+})
+
 
 
 

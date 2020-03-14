@@ -9,6 +9,8 @@ import CompanyLogin from './components/CompanyLogin'
 import UserProfile from './components/UserPofile/UserProfile'
 import CompanyProfile from './components/CompanyProfile/CompanyProfile'
 import JobPostPage from './components/Jobs/JobPostPage'
+import StudentTab from './components/StudentsTab/StudentTab'
+import StudentProfile from './components/StudentsTab/StudentProfile'
 
 class App extends Component {
   render(){
@@ -25,6 +27,8 @@ class App extends Component {
           <Route path='/userProfile' component={UserProfile}/>
           <Route path='/companyProfile' component={CompanyProfile}/>
           <Route path='/jobPosts' component={JobPostPage}/>
+          <Route path='/student-tab' component={StudentTab}/>
+          <Route path ='/studentProfile' component={StudentProfile}/>
         </Switch>
       </div>
       )
