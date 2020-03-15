@@ -25,6 +25,8 @@ const {userApiRouter} = require('./routes/apis/userData')
 const {companyApiRouter} = require('./routes/apis/companyData')
 const {jobPostsApiRouter} = require('./routes/apis/jobData')
 const {applicationsApiRouter} = require('./routes/apis/applicationData')
+const {eventsApiRouter} = require('./routes/apis/eventsData')
+
 app.use(cookieParser())
 
 
@@ -33,6 +35,7 @@ app.use('/api', userApiRouter)
 app.use('/api', companyApiRouter)
 app.use('/api', jobPostsApiRouter)
 app.use('/api', applicationsApiRouter)
+app.use('/api', eventsApiRouter)
 
 
 app.get('*', (req, res) => {
