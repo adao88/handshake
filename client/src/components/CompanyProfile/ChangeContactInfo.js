@@ -36,12 +36,12 @@ const ChangeContactInfo = ({showContactForm, submitContactForm, hideContactForm}
             <div className="modal-main">
                 <form class="ui form">
                     <div class="field">
-                        <label>Name</label>
+                        <label>Email</label>
                         <input type="text" name="name" placeholder="Email" value={newEmail} onChange={handleEmailChange}></input>
                     </div>
                     <div class="field">
-                        <label>Location</label>
-                        <input type="text" name="location" placeholder="Phone" value={newPhone}onChange={handlePhoneChange}></input>
+                        <label>Phone</label>
+                        <input type="text" name="phone" placeholder="Phone" value={newPhone}onChange={handlePhoneChange}></input>
                     </div>             
                     <button type="button" onClick={handleSubmit}>Submit</button>
                     <button type="button" onClick={hideContactForm}>Close</button>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import StudentCard from './StudentCard'
 
 const StudentsList = ({students = []}) => {

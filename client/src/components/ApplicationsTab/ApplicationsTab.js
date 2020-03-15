@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ApplicationList from './ApplicationList'
 import Filter from './Filter'
 import axios from 'axios'
+import NavBar from '../NavBar/NavBar'
 
 class ApplicationsTab extends Component {
     constructor(props){
@@ -44,7 +45,8 @@ class ApplicationsTab extends Component {
     render(){
         return(
             <div>
-                <h1>Applications Tab</h1>
+                <NavBar/>
+                <h1>Student's Applications Tab</h1>
                 <div>
                 <Filter
                     handleStatusChange={this.filterByStatus} 

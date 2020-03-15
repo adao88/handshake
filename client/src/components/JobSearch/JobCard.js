@@ -22,7 +22,7 @@ const JobCard = ({job_id, title, company, date, deadline, location, salary, cate
                         </button>
                     </Link>
                     <Link to={{
-                        pathname:'/companyProfile',
+                        pathname:'/companyPreview',
                         co_id
                         }}>
                         <button variant="raised">

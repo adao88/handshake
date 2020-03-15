@@ -7,6 +7,7 @@ import {fetchJobPostPageInfo, updateJobStatus, postNewJob} from '../../actions/j
 import AppliedJobList from './AppliedJobList'
 import JobList from './JobList'
 import JobForm from './JobForm'
+import NavBar from '../NavBar/NavBar'
 
 
 class JobPostPage extends Component  {
@@ -22,7 +23,7 @@ class JobPostPage extends Component  {
 
     componentDidMount(){
             console.log('Job Post Page state: ', this.state)
-            if(cookie.load("Logged-In")){
+            if(cookie.load("Company-Logged")){
                 this.props.fetchJobPostPageInfo()
             }
     }
@@ -43,26 +44,27 @@ class JobPostPage extends Component  {
 
         console.log('props', this.props)
         let redirectVar = null
-        if(!cookie.load("Logged-In") || this.state.logged === false){
+        if(!cookie.load("Company-Logged") || this.state.logged === false){
             redirectVar = <Redirect to='/company-login'/>
         }
         return(
             <div>
+                <NavBar/>
                 {redirectVar}
-                <h1>Job Posting Page</h1>
-                <div class="ui section divider"></div>
+                <h1>Company's Job Posting Page</h1>
+                <div className="ui section divider"></div>
                     <h2>Posted Jobs</h2>
                     <JobList
                         jobs={this.props.jobPostPageInfo.JobsPosted}
                     />
-                    <div class="ui section divider"></div>
+                    <div className="ui section divider"></div>
                     <button className="ui button primary" onClick={this.showJobForm}>Post Job</button>
                     <JobForm
                         hideJobForm={this.hideJobForm}
                         showJobForm={this.state.showJobForm}
                         postNewJob={this.props.postNewJob}
                     />
-                <div class="ui section divider"></div>
+                <div className="ui section divider"></div>
                     <h2>Applied Jobs</h2>
                     <AppliedJobList
                         appliedJobs={this.props.jobPostPageInfo.JobsApplied}

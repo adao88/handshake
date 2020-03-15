@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 const Logout = (props) => {
 
@@ -12,7 +13,7 @@ const Logout = (props) => {
 
     return (
         <div>
-            <button onClick={logout}>Logout!</button>
+            <Link to="/"><button onClick={logout}>Logout!</button></Link>
         </div>
     )
 }

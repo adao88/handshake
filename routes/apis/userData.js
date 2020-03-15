@@ -39,6 +39,7 @@ router.post('/get-user-profile/', (req, res) => {
         userInfo.Basic.email = result.email_profile
         userInfo.Basic.phone = result.phone
         userInfo.Basic.objective = result.objective
+        userInfo.Basic.degree = result.degree
         userInfo.Skillset.skills = result.skillset
         userInfo.Id = result.id
 
@@ -68,10 +69,10 @@ router.post('/get-user-profile/', (req, res) => {
 router.post('/change-basic-info', (req, res) => {
     let id = req.session.userId
 
-    let {birthdate, location, objective, email, phone} = req.body
+    let {birthdate, location, objective, email, phone, degree} = req.body
 
-    db.query("UPDATE Users SET birthdate = ?, location = ?, email_profile = ?, objective = ?, phone = ? WHERE id = ?",
-    [birthdate, location, email, objective, phone, id ],
+    db.query("UPDATE Users SET birthdate = ?, location = ?, email_profile = ?, objective = ?, phone = ?, degree = ? WHERE id = ?",
+    [birthdate, location, email, objective, phone, degree, id ],
     (error, result) => {
             if (error) throw error
             console.log('result of updating basic info in db:', result)

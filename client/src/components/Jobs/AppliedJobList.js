@@ -14,6 +14,7 @@ const AppliedJobList = ({appliedJobs = [], updateJobStatus}) => {
                 student_name={job.student_name}
                 title={job.title}
                 updateJobStatus={updateJobStatus}
+                key={job.id}
             />
         )
     )

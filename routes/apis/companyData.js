@@ -37,6 +37,17 @@ router.post('/get-company-profile', (req, res)=> {
     })
 })
 
+router.post('/get-company-preview', (req,res) => {
+    let {co_id} = req.body 
+    console.log('inside of company preview route')
+    db.query('SELECT * FROM company WHERE id = ?', [`${co_id}`], (error, result, fields) => {
+        if (error) throw error
+        console.log('getting company preview from id: ', co_id)
+        res.send({
+            ...result[0]
+        })
+    })
+})
 
 
 router.post('/change-company-contact-info', (req,res) => {

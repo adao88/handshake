@@ -7,7 +7,8 @@ const initialState = {
         location: '',
         email: '',
         phone: '',
-        objective: ''
+        objective: '',
+        degree: '',
     },
     Education: [],
     Skillset:{

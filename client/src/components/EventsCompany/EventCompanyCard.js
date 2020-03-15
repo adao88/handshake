@@ -8,7 +8,6 @@ const EventCompanyCard = ({student_id, event_name, student_name}) => {
                 <div className="content">
                     <div className="header">{event_name}</div>
                     <div className="meta">{student_name}</div>
-                     <div>{student_id}</div>
                     <Link to={{
                         pathname:'/studentProfile',
                         id: student_id

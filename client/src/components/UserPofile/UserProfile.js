@@ -13,7 +13,7 @@ import UserEducation from './UserEducation'
 import UserExperience from './UserExperience'
 import UserSkillset from './UserSkillset'
 import ChangeSkillset from './ChangeSkillset'
-
+import NavBar from '../NavBar/NavBar'
 class UserProfile extends Component {
     
     constructor(props) {
@@ -36,7 +36,7 @@ class UserProfile extends Component {
         
         console.log('state: ', this.state)
         
-        if(cookie.load("Logged-In")){
+        if(cookie.load("Student-Logged")){
             this.props.fetchUserInfo()
         }
         
@@ -170,12 +170,13 @@ class UserProfile extends Component {
 
         console.log('props', this.props)
         let redirectVar = null
-        if(!cookie.load("Logged-In") || this.state.logged === false){
+        if(!cookie.load("Student-Logged") || this.state.logged === false){
             redirectVar = <Redirect to='/login'/>
         }
         return(
             <div>
                 {redirectVar}
+                <NavBar/>
                 <div className="ui segment">
                     <h2>Basic Info</h2>
                     <UserBasic 
@@ -185,6 +186,7 @@ class UserProfile extends Component {
                         email={this.props.userInfo.Basic.email}
                         phone={this.props.userInfo.Basic.phone}
                         objective={this.props.userInfo.Basic.objective}
+                        degree={this.props.userInfo.Basic.degree}
                     />
                     <button
                     className="ui button primary"

@@ -11,9 +11,17 @@ class Register extends Component {
             name: "",
             email: "",
             password: "",
-            schoolName: ""
+            schoolName: "",
+            degree: "",
+            message: ''
         }
     
+    }
+
+    degreeChangeHandler = (e) => {
+        this.setState({
+            degree: e.target.value
+        })
     }
 
     nameChangeHandler = (e) => {
@@ -48,7 +56,8 @@ class Register extends Component {
             email: this.state.email,
             password: this.state.password,
             name: this.state.name,
-            schoolName: this.state.schoolName
+            schoolName: this.state.schoolName,
+            degree: this.state.degree
         }
         console.log('newUser', newUser)
         axios.defaults.withCredentials = true;
@@ -56,6 +65,9 @@ class Register extends Component {
         axios.post('/register', newUser)
             .then(response => {
                 console.log('Response: ', response)
+                this.setState({
+                    message: response.data.message
+                })
             })
     }
 
@@ -65,6 +77,7 @@ class Register extends Component {
         
         return(
             <div>
+                <h1>User Registration</h1>
                 <form>
                     <input onChange={this.nameChangeHandler} placeholder="Name" type="text"/>
                     <input onChange={this.schoolNameChangeHandler} placeholder="School Name" type="text"/>
@@ -72,6 +85,7 @@ class Register extends Component {
                     <input onChange={this.passwordChangeHandler} placeholder="Password" type="text"/>
                     <button type="button" onClick={this.submitRegistration}>Register!</button>
                 </form>
+                {this.state.message}
             </div>
         )
     }

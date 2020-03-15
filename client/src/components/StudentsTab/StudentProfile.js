@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import NavBar from '../NavBar/NavBar'
 
 
 class StudentProfile extends Component {
@@ -33,6 +34,7 @@ class StudentProfile extends Component {
     render(){
         return(
             <div>
+                <NavBar/>
                 <h1>Student Profile</h1>
                 <div className="item">
                     <div className="content">

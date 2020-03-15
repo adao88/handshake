@@ -24,8 +24,8 @@ router.post('/apply-to-job', (req, res) => {
                 message: 'You have already applied to this job'
             })
         } else {
-            db.query(`INSERT INTO jobs_students (student_id, co_id, status, student_name, title, job_id, company, today) 
-            VALUES('${student_id}', '${co_id}', 'Pending', '${student_name}', '${title}', '${job_id}', '${company}', '${today}')`,
+            db.query(`INSERT INTO jobs_students (student_id, co_id, status, student_name, title, job_id, company) 
+            VALUES('${student_id}', '${co_id}', 'Pending', '${student_name}', '${title}', '${job_id}', '${company}')`,
             (error, result) => {
                 if(error) throw error 
                 console.log('result inner loop:')

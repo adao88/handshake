@@ -2,6 +2,8 @@ import React , {Component} from 'react'
 import EventsList from './EventsList'
 import EventForm from './EventForm'
 import axios from 'axios'
+import NavBar from '../NavBar/NavBar'
+import AllEventsList from './AllEventsList'
 
 class EventsCompanyTab extends Component {
     constructor(props){
@@ -24,6 +26,15 @@ class EventsCompanyTab extends Component {
                 })
             })
 
+        axios.get('/api/get-all-company-events')
+            .then(response => {
+                console.log('response: ', response.data)
+                this.setState({
+                    allEvents: response.data.events
+                })
+            })
+        
+
     }
 
     handleHideForm = () => {
@@ -41,18 +52,30 @@ class EventsCompanyTab extends Component {
     subtmitForm = (event) => {
 
         axios.post('/api/create-event', event)
-            .then(response => console.log('response: ', response))
+            .then(response => {
+                console.log('response: ', response.data)
+                let newEventsArr = this.state.allEvents.concat(response.data.event)
+                    this.setState({
+                        allEvents: newEventsArr
+                    })
+            })
     }
 
     render(){
         return(
             <div>
-                <h1>Events Tab</h1>
+                <NavBar/>
+                <h1>Company Events Tab</h1>
                 <div>
+                    <h2>Events Created:</h2>
+                    <AllEventsList
+                        events={this.state.allEvents}
+                    />
+                    <button className="ui button primary" onClick={this.handleShowForm}>Create Event</button>
+                    <h2>Registered Events:</h2>
                     <EventsList
                         events={this.state.events}
                     />
-                    <button className="ui button primary" onClick={this.handleShowForm}>Create Event</button>
                     <EventForm
                         hideEventForm={this.handleHideForm}
                         showEventForm={this.state.showEventForm}

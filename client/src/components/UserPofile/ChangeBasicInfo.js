@@ -14,6 +14,7 @@ const ChangeBasicInfo = ({
     const [newObjective, setNewObjective] = useState('')
     const [newEmail, setNewEmail] = useState('')
     const [newPhone, setNewPhone] = useState('')
+    const [newDegree, setNewDegree] = useState('')
 
     const handleNameChange = (e) => {
         setNewName(e.target.value)
@@ -38,6 +39,10 @@ const ChangeBasicInfo = ({
         setNewPhone(e.target.value)
     }
 
+    const handleDegreeChange = (e) => {
+        setNewDegree(e.target.value)
+    }
+
     const handleSubmit = () => {
         let BasicInfo = {
             name: newName,
@@ -45,7 +50,8 @@ const ChangeBasicInfo = ({
             location: newLocation,
             objective: newObjective,
             email: newEmail,
-            phone: newPhone
+            phone: newPhone,
+            degree: newDegree
         }
         
         
@@ -58,6 +64,7 @@ const ChangeBasicInfo = ({
         setNewEmail('')
         setNewLocation('')
         setNewBirthDate('')
+        setNewDegree('')
     }
 
     let show = showBasicForm ? "modal display-block" : "modal display-none"
@@ -89,7 +96,11 @@ const ChangeBasicInfo = ({
                     <div class="field">
                         <label>Objective</label>
                         <input type="text" name="objective" placeholder="Objective" value={newObjective} onChange={handleObjectiveChange}></input>
-                    </div>               
+                    </div>
+                    <div class="field">
+                        <label>Degree</label>
+                        <input type="text" name="degree" placeholder="Degree" value={newDegree} onChange={handleDegreeChange}></input>
+                    </div>                
                     <button type="button" onClick={handleSubmit}>Submit</button>
                     <button type="button" onClick={hideBasicForm}>Close</button>
                 </form>

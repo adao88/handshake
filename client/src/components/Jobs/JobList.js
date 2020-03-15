@@ -12,6 +12,7 @@ const JobList = ({jobs = []}) => {
                 date={job.date}
                 deadline={job.deadline}
                 salary={job.salary}
+                key={job.id}
             />
         )
 

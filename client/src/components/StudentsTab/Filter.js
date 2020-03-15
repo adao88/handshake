@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Filter = ({handleNameChange,handleSchoolChange, handleSkillChange}) => {
+const Filter = ({handleReset, handleNameChange,handleSchoolChange, handleSkillChange}) => {
     return(
         <div>
             Name:
@@ -15,6 +15,7 @@ const Filter = ({handleNameChange,handleSchoolChange, handleSkillChange}) => {
             <input
                 onChange={handleSkillChange}
             />
+            <button onClick={handleReset}>Reset</button>
         </div>
     )
 }

@@ -7,6 +7,7 @@ import CompanyBasic from './CompanyBasic'
 import CompanyContact from './CompanyContact'
 import ChangeBasicInfo from './ChangeBasicInfo'
 import ChangeContactInfo from './ChangeContactInfo'
+import NavBar from '../NavBar/NavBar'
 
 class CompanyProfile extends Component {
     constructor(props){
@@ -23,7 +24,7 @@ class CompanyProfile extends Component {
     componentDidMount() {
         console.log('state: ', this.state)
 
-        if(cookie.load("Logged-In")){
+        if(cookie.load("Company-Logged")){
             this.props.fetchCompanyInfo()
         }
     }
@@ -67,37 +68,40 @@ class CompanyProfile extends Component {
 
         console.log('props', this.props)
         let redirectVar = null
-        if(!cookie.load("Logged-In") || this.state.logged === false){
+        if(!cookie.load("Company-Logged") || this.state.logged === false){
             redirectVar = <Redirect to='/company-login'/>
         }
 
         return(
-            <div className="ui segment">
-                {redirectVar}
-                <h2>Basic Info</h2>
-                <CompanyBasic
-                    name={this.props.companyInfo.Basic.name}
-                    location={this.props.companyInfo.Basic.location}
-                    description={this.props.companyInfo.Basic.description}
-                />
-                <button className="ui button primary" onClick={this.showBasicForm}>Edit</button>
-                <ChangeBasicInfo
-                    showBasicForm={this.state.showBasicForm} 
-                    hideBasicForm={this.hideBasicForm} 
-                    submitBasicForm={this.submitBasicForm}
-                />
-                <div class="ui section divider"></div>
-                <h2>Contact Info</h2>
-                <CompanyContact
-                    email={this.props.companyInfo.Contact.email}
-                    phone={this.props.companyInfo.Contact.phone}
-                />
-                <button className="ui button primary" onClick={this.showContactForm}>Edit</button>
-                <ChangeContactInfo
-                    showContactForm={this.state.showContactForm}
-                    hideContactForm={this.hideContactForm}
-                    submitContactForm={this.submitContactForm}
-                />
+            <div>
+                <NavBar/>
+                <div className="ui segment">
+                    {redirectVar}
+                    <h2>Basic Info</h2>
+                    <CompanyBasic
+                        name={this.props.companyInfo.Basic.name}
+                        location={this.props.companyInfo.Basic.location}
+                        description={this.props.companyInfo.Basic.description}
+                    />
+                    <button className="ui button primary" onClick={this.showBasicForm}>Edit</button>
+                    <ChangeBasicInfo
+                        showBasicForm={this.state.showBasicForm} 
+                        hideBasicForm={this.hideBasicForm} 
+                        submitBasicForm={this.submitBasicForm}
+                    />
+                    <div class="ui section divider"></div>
+                    <h2>Contact Info</h2>
+                    <CompanyContact
+                        email={this.props.companyInfo.Contact.email}
+                        phone={this.props.companyInfo.Contact.phone}
+                    />
+                    <button className="ui button primary" onClick={this.showContactForm}>Edit</button>
+                    <ChangeContactInfo
+                        showContactForm={this.state.showContactForm}
+                        hideContactForm={this.hideContactForm}
+                        submitContactForm={this.submitContactForm}
+                    />
+                </div>
             </div>
         )
     }

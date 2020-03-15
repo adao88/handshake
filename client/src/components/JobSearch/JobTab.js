@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import JobList from './JobList'
 import Filter from './Filter'
 import axios from 'axios'
+import NavBar from '../NavBar/NavBar'
 
 
 class JobTab extends Component {
@@ -80,7 +81,8 @@ class JobTab extends Component {
 
         return(
             <div>
-                <h1>Jobs Tab</h1>
+                <NavBar/>
+                <h1>Student's Jobs Tab</h1>
                 <Filter
                     handleLocationChange={this.handleLocationSearch}
                     handleCategoryChange={this.handleCategoryChange}

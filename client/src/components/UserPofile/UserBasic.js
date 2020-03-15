@@ -12,6 +12,7 @@ const UserBasic = (props) => {
                     <div className="description">{props.email}</div>
                     <div className="description">{props.phone}</div>
                     <div className="extra">{props.objective}</div>
+                    <div className="extra">{props.degree}</div>
                 </div>
             </div>
         </div>

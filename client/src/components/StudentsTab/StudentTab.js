@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import StudentsList from './StudentsList'
 import Filter from './Filter'
 import axios from 'axios'
+import NavBar from '../NavBar/NavBar'
 
 
 class StudentTab extends Component {
@@ -28,6 +29,12 @@ class StudentTab extends Component {
                     filteredStudents: response.data.Students
                 })
             })
+    }
+
+    reset = () => {
+        this.setState({
+            filteredStudents: this.state.students
+        })
     }
 
     handleNameSearch = (e) => {
@@ -106,11 +113,13 @@ class StudentTab extends Component {
 
         return(
             <div>
+                <NavBar/>
                 <h3>Filter By:</h3>
                 <Filter
                     handleNameChange={this.handleNameSearch}
                     handleSchoolChange={this.handleSchoolSearch}
                     handleSkillChange={this.handleSkillSearch}
+                    handleReset={this.reset}
                 />
                 <h2>Students:</h2>
                 <StudentsList

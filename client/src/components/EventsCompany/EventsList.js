@@ -9,6 +9,7 @@ const EventsList = ({events = []}) =>{
                 student_id={event.student_id}
                 event_name={event.event_name}
                 student_name={event.student_name}
+                key={event.id}
             />
         )
 

@@ -15,6 +15,9 @@ import JobTab from './components/JobSearch/JobTab'
 import JobProfile from './components/JobSearch/JobProfile'
 import ApplicationsTab from'./components/ApplicationsTab/ApplicationsTab'
 import EventsCompanyTab from './components/EventsCompany/EventsCompanyTab'
+import EventsStudentsTab from './components/EventsStudents/EventsStudentsTab'
+import EventProfile from './components/EventsStudents/EventProfile'
+import CompanyPreview from './components/JobSearch/CompanyPreview'
 
 class App extends Component {
   render(){
@@ -37,6 +40,9 @@ class App extends Component {
           <Route path ='/jobProfile' component={JobProfile}/>
           <Route path='/applicationsTab' component={ApplicationsTab}/>
           <Route path='/company-events-tab' component={EventsCompanyTab}/>
+          <Route path='/student-events-tab' component={EventsStudentsTab}/>
+          <Route path='/eventProfile' component={EventProfile}/>
+          <Route path='/companyPreview' component={CompanyPreview}/>
         </Switch>
       </div>
       )

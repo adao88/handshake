@@ -11,7 +11,8 @@ class CompanyLogin extends Component {
         this.state = {
             email: "",
             password: "",
-            logged: false
+            logged: false,
+            message: ''
         }
     
     }
@@ -47,6 +48,9 @@ class CompanyLogin extends Component {
                         logged: true
                     })
                 }
+                this.setState({
+                    message: response.data.message
+                })
             })
     }
 
@@ -55,20 +59,22 @@ class CompanyLogin extends Component {
 
     render(){
         let redirectVar = null
-        if(cookie.load("Logged-In")){
+        if(cookie.load("Company-Logged") || this.state.logged){
             console.log('logged in cookie loaded!')
-            redirectVar = <Redirect to='/companyProfile'/>
+            redirectVar = <Redirect to='/jobPosts'/>
         }
         return(
             <div>
+                <h1>Company Login</h1>
                 {redirectVar}
                 <div>
                     <form>
                         <input onChange={this.emailChangeHandler} placeholder="email" type="text"/>
-                        <input onChange={this.passwordChangeHandler} placeholder="password" type="text"/>
+                        <input onChange={this.passwordChangeHandler} placeholder="password" type="password"/>
                         <button type="button" onClick={this.submitLogin}>Login!</button>
                     </form>
                 </div>
+                {this.state.message}
             </div>
         )
     }

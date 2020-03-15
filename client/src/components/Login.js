@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import Logout from './Logout'
 import {Redirect} from 'react-router'
 import cookie from 'react-cookies'
 
@@ -13,7 +12,8 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            logged: false
+            logged: false,
+            message: ''
         }
     
     }
@@ -47,6 +47,9 @@ class Login extends Component {
                 this.setState({
                     logged: true
                 })
+                this.setState({
+                    message: response.data.message
+                })
             })
     }
 
@@ -63,20 +66,21 @@ class Login extends Component {
 
     render(){
         let redirectVar = null
-        if(cookie.load("Logged-In")){
-            redirectVar = <Redirect to='/userProfile'/>
+        if(cookie.load("Student-Logged")){
+            redirectVar = <Redirect to='/job-tab'/>
         }
         
         return(
             <div>
+                <h1>Student Login</h1>
                 {redirectVar}
                 <form>
                     <input onChange={this.emailChangeHandler} placeholder="email" type="text"/>
-                    <input onChange={this.passwordChangeHandler} placeholder="password" type="text"/>
+                    <input onChange={this.passwordChangeHandler} placeholder="password" type="password"/>
                     <button type="button" onClick={this.submitLogin}>Login!</button>
                     <button type="button" onClick={this.getInfo}>Get Info</button>
                 </form>
-                <Logout/>
+                {this.state.message}
             </div>
         )
     }

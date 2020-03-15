@@ -10,7 +10,8 @@ class CompanyRegister extends Component {
         this.state = {
             email: "",
             password: "",
-            name: ""
+            name: "",
+            message: ""
         }
     
     }
@@ -48,6 +49,9 @@ class CompanyRegister extends Component {
         axios.post('/company-register', newCompany)
             .then(response => {
                 console.log('Response: ', response)
+                this.setState({
+                    message: response.data.message
+                })
             })
     }
 
@@ -57,12 +61,14 @@ class CompanyRegister extends Component {
         
         return(
             <div>
+                <h1>Company Registration</h1>
                 <form>
                     <input onChange={this.nameChangeHandler} placeholder="name" type="text"/>
                     <input onChange={this.emailChangeHandler} placeholder="email" type="text"/>
                     <input onChange={this.passwordChangeHandler} placeholder="password" type="text"/>
                     <button type="button" onClick={this.submitRegistration}>Register!</button>
                 </form>
+                {this.state.message}
             </div>
         )
     }

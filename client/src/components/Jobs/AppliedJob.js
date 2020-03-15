@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {Link} from 'react-router-dom'
 
 const AppliedJob = ({id, student_id, co_id, status, student_name, title, updateJobStatus}) => {
 
@@ -29,6 +30,14 @@ const AppliedJob = ({id, student_id, co_id, status, student_name, title, updateJ
                         <div className="description">{title}</div>
                         <div className="description">{status}</div>
                     </div>
+                    <Link to={{
+                        pathname:'/studentProfile',
+                        id: student_id
+                        }}>
+                        <button variant="raised">
+                            See Profile
+                        </button>
+                    </Link>
                 </div>
                 <div onChange={handleStatusChange}>
                     <input type="radio" value="Pending" name="status"/> Pending

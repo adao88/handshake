@@ -1,8 +1,6 @@
 const bcrypt = require('bcryptjs')
 const express = require('express')
 const {db} = require('../db')
-const session = require('express-session')
-const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 
 
@@ -20,6 +18,7 @@ router.post('/register', (req, res) => {
     let password = req.body.password
     let name = req.body.name
     let schoolName = req.body.schoolName
+    let degree = req.body.degree
 
     db.query('SELECT * FROM Users WHERE email = ?', [email], (error, results, fields) => {
         if (error) {
@@ -33,7 +32,7 @@ router.post('/register', (req, res) => {
             console.log('inserting into DB...')
             bcrypt.hash(password, 10, function(err, hash) {
                 let stringHash = hash.toString()
-                db.query(`INSERT INTO Users (email, password, name, schoolname, email_profile) VALUES ('${email}', '${stringHash}', '${name}', '${schoolName}', '${email}')`, (err, result) => {
+                db.query(`INSERT INTO Users (email, password, name, schoolname, email_profile, degree) VALUES ('${email}', '${stringHash}', '${name}', '${schoolName}', '${email}', '${degree}')`, (err, result) => {
                     if (err) {
                         console.log(err)
                     } 
@@ -62,6 +61,7 @@ router.post('/register', (req, res) => {
         }
     })
 })
+
 router.post('/company-register', (req, res) => {
     console.log('req is: ', req.body)
     let email = req.body.email
@@ -97,80 +97,104 @@ router.post('/company-register', (req, res) => {
 router.post('/login', (req, res) => {
     let email = req.body.email
     let password = req.body.password
+    let queryResults
 
-    db.query('SELECT * FROM Users WHERE email = ?', [email], (error, results, fields) => {
+    db.query('SELECT * FROM Users WHERE email = ?', [email], async (error, results, fields) => {
         if (error) throw err
-        console.log('email check result: ', results)
-        if(results.length < 1) {
-            res.send({
-                message: "login failed"
-            })
-        }
-        console.log('query results: ', results)
-        let user_id = results[0].id
-        let hash = results[0].password
-        console.log('query results: ', results[0])
+        
+            queryResults = await results
 
-        bcrypt.compare(password, hash, (err, result) => {
-            console.log('Bcrypt result: ', result)
-            if (result){
-                
+            console.log('test query results: ', queryResults)
 
-                req.session.userId = user_id
-                req.session.studentName = results[0].name
-
-                console.log(req.session.userId)
-                res.cookie('Logged-In',"user", {maxAge: 900000, httpOnly: false, path : '/'})
+            console.log('email check result: ', results)
+            if(queryResults.length === 0) {
                 res.send({
-                    login: 'Success',
-                    message: `Session with ${email} with ${req.session.userId}`,
-                    id: req.session.userId
-                })
-            } else {
-                res.send({
-                    login: 'Failed',
-                    message: 'Login Failed'
+                    message: "Login failed. Email not Found"
                 })
             }
-        })
+            if(queryResults.length > 0) {
+                let user_id = results[0].id
+                let hash = results[0].password
+                console.log('query results: ', results[0])
 
+
+
+                bcrypt.compare(password, hash, (err, result) => {
+                    console.log('Bcrypt result: ', result)
+                    if (result){
+                        
+
+                        req.session.userId = user_id
+                        req.session.studentName = results[0].name
+                        req.session.degree = results[0].degree
+
+                        console.log(req.session.userId)
+                        res.cookie('Student-Logged',"user", {maxAge: 900000, httpOnly: false, path : '/'})
+                        res.send({
+                            login: 'Success',
+                            message: `Session with ${email} with ${req.session.userId}`,
+                            id: req.session.userId
+                        })
+                    } else {
+                        res.send({
+                            login: 'Failed',
+                            message: 'Login Failed. Incorrect Password'
+                        })
+                    }
+                })
+            }
+        
     })
 })
 
-router.post('/company-login', (req, res) => {
+router.post('/company-login',  (req, res) => {
     let email = req.body.email
     let password = req.body.password
+    let queryResults
 
-    db.query('SELECT * FROM Company WHERE email = ?', [email], (error, results, fields) => {
+    db.query('SELECT * FROM Company WHERE email = ?', [email], async (error, results, fields) => {
         if (error) throw err
+
+
+        queryResults = await results 
+
         console.log('email check result: ', results)
-        let user_id = results[0].id
-        let hash = results[0].password
-        console.log('query results: ', results[0])
+        if(queryResults.length === 0)
+            res.send({
+                message: "Login Failed. Unable to find email."
+            })
 
-        bcrypt.compare(password, hash, (err, result) => {
-            console.log('Bcrypt result: ', result)
-            if (result){
+        if(queryResults.length > 0) {
+            let user_id = results[0].id
+            let hash = results[0].password
+            console.log('query results: ', results[0])
 
-                req.session.userId = user_id
-                res.cookie('Logged-In',"Company", {maxAge: 900000, httpOnly: false, path : '/'})
-                res.send({
-                    message: `Session with ${email} with ${req.session.userId}`,
-                    id: req.session.userId
-                })
-            } else {
-                res.send({
-                    message: 'Login Failed'
-                })
-            }
-        })
+            bcrypt.compare(password, hash, (err, result) => {
+                console.log('Bcrypt result: ', result)
+                if (result){
 
+                    req.session.userId = user_id
+                    req.session.company_name = results[0].name
+                    
+                    res.cookie('Company-Logged',"Company", {maxAge: 900000, httpOnly: false, path : '/'})
+                    res.send({
+                        message: `Session with ${email} with ${req.session.userId}`,
+                        id: req.session.userId
+                    })
+                } else {
+                    res.send({
+                        message: 'Login Failed. Incorrect Password'
+                    })
+                }
+            })
+        }
     })
 })
 
 router.post('/logout', (req, res) => {
     res.clearCookie('cookie')
-    res.clearCookie('Logged-In')
+    res.clearCookie('Student-Logged')
+    res.clearCookie('Company-Logged')
     let id = req.session.userId
     res.clearCookie('connect.sid')
     req.session.destroy((err) =>{
@@ -182,8 +206,7 @@ router.post('/logout', (req, res) => {
 })
 
 module.exports = {
-    userRouter: router,
-    //passport
+    userRouter: router
 }
 
 
